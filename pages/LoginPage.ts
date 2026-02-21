@@ -1,4 +1,5 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
+
 export class LoginPage {
   constructor(private page: Page) {}
 
@@ -10,5 +11,9 @@ export class LoginPage {
     await this.page.fill('#user-name', username);
     await this.page.fill('#password', password);
     await this.page.click('#login-button');
+  }
+
+  async shouldBeLoggedIn() {
+    await expect(this.page.locator('.inventory_list')).toBeVisible();
   }
 }
