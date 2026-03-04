@@ -4,6 +4,7 @@ import { ProductsPage } from '../pages/ProductsPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutStepOnePage } from '../pages/CheckoutStepOnePage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
+import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 
 
 
@@ -13,6 +14,7 @@ test('Smoke: user can add product to cart', async ({ page }) => {
   const cart = new CartPage(page);
   const stepOne = new CheckoutStepOnePage(page);
   const overview = new CheckoutOverviewPage(page);
+  const complete = new CheckoutCompletePage(page);
 
   await login.open();
   await login.login('standard_user', 'secret_sauce');
@@ -31,4 +33,6 @@ test('Smoke: user can add product to cart', async ({ page }) => {
   await overview.shouldDisplayItems();
   await overview.shouldDisplayTotal();
   await overview.finish();
+
+  await complete.shouldShowSuccessMessage();
 });
