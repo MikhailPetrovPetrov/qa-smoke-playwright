@@ -2,12 +2,15 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { CartPage } from '../pages/CartPage';
+import { CheckoutStepOnePage } from '../pages/CheckoutStepOnePage';
+
 
 
 test('Smoke: user can add product to cart', async ({ page }) => {
   const login = new LoginPage(page);
   const products = new ProductsPage(page);
   const cart = new CartPage(page);
+  const stepOne = new CheckoutStepOnePage(page);
 
   await login.open();
   await login.login('standard_user', 'secret_sauce');
@@ -18,4 +21,8 @@ test('Smoke: user can add product to cart', async ({ page }) => {
   await products.openCart();
 
   await cart.verifyProductInCart();
+  await cart.checkout();
+
+  await stepOne.fillInformation('Mikhail', 'Petrov', '11000');
+  await stepOne.continue();
 });

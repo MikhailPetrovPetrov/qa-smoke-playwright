@@ -6,4 +6,8 @@ export class CartPage {
   async verifyProductInCart() {
     await expect(this.page.locator('.cart_item')).toBeVisible();
   }
+
+  async checkout() {
+    await this.page.click('#checkout');
+  }
 }
